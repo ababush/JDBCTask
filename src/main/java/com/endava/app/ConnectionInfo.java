@@ -18,15 +18,14 @@ public class ConnectionInfo {
     protected static final String PASSWORD = appProprieties.getProperty("password");
 
     protected static Properties getProprietiesFile() {
-
+        Properties appProps = new Properties();
         try {
-            Properties appProps = new Properties();
             appProps.load(new FileInputStream(PATH_TO_CONFIG));
             return appProps;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return null;
+        return appProps;
     }
 
     private static HikariConfig config = new HikariConfig();
