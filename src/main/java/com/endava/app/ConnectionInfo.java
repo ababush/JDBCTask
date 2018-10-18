@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionInfo {
-    protected static final String PATH_TO_CONFIG = "target/maven-archiver/pom.properties";
+    private static final String PATH_TO_CONFIG = "target/maven-archiver/pom.properties";
 
     static private Properties appProprieties = getProprietiesFile();
     protected static final String DRIVER_URL = appProprieties.getProperty("driverUrl");
@@ -17,7 +17,7 @@ public class ConnectionInfo {
     protected static final String USERNAME = appProprieties.getProperty("username");
     protected static final String PASSWORD = appProprieties.getProperty("password");
 
-    protected static Properties getProprietiesFile() {
+    private static Properties getProprietiesFile() {
         Properties appProps = new Properties();
         try {
             appProps.load(new FileInputStream(PATH_TO_CONFIG));
@@ -39,10 +39,6 @@ public class ConnectionInfo {
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         ds = new HikariDataSource(config);
-    }
-
-    public static Connection getConnection() throws SQLException {
-        return ds.getConnection();
     }
 
     private ConnectionInfo() {

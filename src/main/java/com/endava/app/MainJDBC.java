@@ -16,9 +16,8 @@ public class MainJDBC {
 
     private static GenericObjectPool gPool = null;
 
-// Connection
 
-    public static void executeStatement(String command, Connection connObj) {
+    private static void executeStatement(String command, Connection connObj) {
         Statement pstmtObj = null;
         try {
             pstmtObj = connObj.createStatement();
@@ -44,7 +43,7 @@ public class MainJDBC {
         }
     }
 
-    public static void executeSelect(Connection connObj) {
+    private static void executeSelect(Connection connObj) {
         ResultSet rsObj = null;
         PreparedStatement pstmtObj = null;
         try {
@@ -75,7 +74,7 @@ public class MainJDBC {
         }
     }
 
-    public static void executeInsertIntoTable(Connection connObj) {
+    private static void executeInsertIntoTable(Connection connObj) {
 
         PreparedStatement pstmtObj = null;
         try {
@@ -111,10 +110,10 @@ public class MainJDBC {
     }
 
 
-    public static void executeStoredProcedure(Connection connObj) {
+    private static void executeStoredProcedure(Connection connObj) {
         CallableStatement pstmtObj = null;
         try {
-            int inputNumber = 7, resustOfStoredProc = 0;
+            int inputNumber = 7, resustOfStoredProc;
 
             pstmtObj = connObj.prepareCall("{call MULTIPLY(?, ?)}");
             pstmtObj.setInt(1, inputNumber);
@@ -141,18 +140,18 @@ public class MainJDBC {
 
     private void callAllMethodsForJDBC(Connection connObj) {
 
-//        System.out.println("\n=====Executing select from db=====\n");
-//        executeSelect(connObj); // select
-//        System.out.println("\n=====Creating new table=====\n");
-//        executeStatement(getCreateTableStatement(), connObj); // create table
-//        System.out.println("\n=====Executing insert into table=====\n");
-//        executeInsertIntoTable(connObj); // insert into table
-//        System.out.println("\n=====Executing alter table statement=====\n");
-//        executeStatement(getAlterTableStatement(), connObj); // execute alter table
-//        System.out.println("\n=====Drop table=====\n");
-//        executeStatement(getDropTableStatement(), connObj); // drop table
-//        System.out.println("\n=====Executing stored procedure=====\n");
-//        executeStoredProcedure(connObj); //execute stored procedure
+        System.out.println("\n=====Executing select from db=====\n");
+        executeSelect(connObj); // select
+        System.out.println("\n=====Creating new table=====\n");
+        executeStatement(getCreateTableStatement(), connObj); // create table
+        System.out.println("\n=====Executing insert into table=====\n");
+        executeInsertIntoTable(connObj); // insert into table
+        System.out.println("\n=====Executing alter table statement=====\n");
+        executeStatement(getAlterTableStatement(), connObj); // execute alter table
+        System.out.println("\n=====Drop table=====\n");
+        executeStatement(getDropTableStatement(), connObj); // drop table
+        System.out.println("\n=====Executing stored procedure=====\n");
+        executeStoredProcedure(connObj); //execute stored procedure
 
     }
 
@@ -223,7 +222,7 @@ public class MainJDBC {
 
     }
 
-    public DataSource setUpPool() throws Exception {
+    private DataSource setUpPool() throws Exception {
         Class.forName(ConnectionInfo.DRIVER_URL);
 
         // Creates an Instance of GenericObjectPool That Holds Our Pool of Connections Object!
