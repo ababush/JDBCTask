@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 
-public interface eStatementInterface extends statement{
+public interface executeStatementInterface extends statement{
 
     default void executeStatement(Connection connObj, String command){
         Statement pstmtObj = null;
